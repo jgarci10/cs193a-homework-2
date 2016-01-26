@@ -1,5 +1,10 @@
-package com.example.jorge.todolist;
+/*
+    This is a simple to do list. The user types out their task and adds to the list
+    by clicking the add button. Removal occurs by pressing the tasking. Once a user does enough
+    task they are rewarded.
+ */
 
+package com.example.jorge.todolist;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private int completedScore = 0;
 
     @Override
-    //cretaes the addpate and contects it to the ListView
+    //cretaes the adapater and contects it to the ListView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -52,11 +57,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         taskList.remove(index);
         adapter.notifyDataSetChanged();
         completedScore++;
+        //the user is rewarded with pokemon
         if (completedScore > 4){
             Toast.makeText(this,"You have done enough. Go play Pokemon!!",Toast.LENGTH_LONG).show();
-            MediaPlayer mp = MediaPlayer.create(this,R.raw.pokemon_song);
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.pokemon_video);
+            mp.setScreenOnWhilePlaying(true);
             mp.start();
-
+            completedScore = 0;
         }
     }
 }
