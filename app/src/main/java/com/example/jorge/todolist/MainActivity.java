@@ -8,13 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.media.MediaPlayer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ArrayList<String> taskList = new ArrayList<>();
-    private  ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter;
+    private int completedScore = 0;
 
     @Override
     //cretaes the addpate and contects it to the ListView
@@ -28,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //set the list to store tasks
         adapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_1,
+                R.layout.todolistlayout,
+                R.id.item_text,
                 taskList
         );
         thingsToDoList.setAdapter(adapter);
@@ -47,5 +51,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int index, long id) {
         taskList.remove(index);
         adapter.notifyDataSetChanged();
+        completedScore++;
+        if (completedScore > 4){
+            Toast.makeText(this,"You have done enough. Go play Pokemon!!",Toast.LENGTH_LONG).show();
+            MediaPlayer mp = MediaPlayer.create(this,R.raw.pokemon_song);
+            mp.start();
+
+        }
     }
 }
